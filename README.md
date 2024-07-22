@@ -1,4 +1,4 @@
-Main repo grading: [![Autograding](https://github.com/YoussefElserougi/forker/actions/workflows/classroom.yml/badge.svg)](https://github.com/YoussefElserougi/forker/actions/workflows/classroom.yml)
+Main repo grading: [![Autograding](https://github.com/forktrial/forktrial-forker_cl-forker_cl-forker/actions/workflows/classroom.yml/badge.svg)](https://github.com/forktrial/forktrial-forker_cl-forker_cl-forker/actions/workflows/classroom.yml)
 
 Placeholder: [![Autograding](https://github.com/YoussefElserougi/forker/actions/workflows/classroom.yml/badge.svg)](https://github.com/YoussefElserougi/forker/actions/workflows/classroom.yml)
 
