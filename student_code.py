@@ -9,7 +9,7 @@ def palindrome_permutation(s: str) -> bool:
     
     for char in s:
         if char in char_count:
-            char_count[char] += 1
+            char_count[char] += 2
         else:
             char_count[char] = 1
     
