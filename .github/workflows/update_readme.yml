@@ -1,0 +1,49 @@
+name: Update Badge in Forks
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Starter Repository
+      uses: actions/checkout@v2
+
+    - name: Update README with Badge
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}  # Use the TOKEN secret instead of GITHUB_TOKEN
+      run: |
+        # Set variables for the repository
+        repo=${{ github.repository }}
+        owner=$(echo $repo | cut -d '/' -f 1)
+        repo_name=$(echo $repo | cut -d '/' -f 2)
+
+        # The badge URL template
+        badge_url="https://github.com/$owner/$repo_name/actions/workflows/classroom.yml/badge.svg"
+        badge_link="https://github.com/$owner/$repo_name/actions/workflows/classroom.yml"
+
+        # Fetch the list of forks
+        forks=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/repos/$owner/$repo_name/forks")
+
+        for fork in $(echo "$forks" | jq -r '.[].full_name'); do
+          echo "Updating README for $fork"
+
+          # Fetch the current README file
+          readme_sha=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/$fork/contents/README.md" | jq -r '.sha')
+
+          # New content for README with the badge pointing to the forked repo
+          new_content=$(echo -e "[![Autograding]($badge_url)]($badge_link)")
+
+          # Encode new content in base64
+          encoded_content=$(echo -n "$new_content" | base64)
+
+          # Update README file
+          curl -X PUT -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"message\": \"Update README.md with autograding badge\", \"content\": \"$encoded_content\", \"sha\": \"$readme_sha\"}" \
+            "https://api.github.com/repos/$fork/contents/README.md"
+        done
