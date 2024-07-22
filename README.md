@@ -2,6 +2,8 @@ Main repo grading: [![Autograding](https://github.com/forktrial/forktrial-forker
 
 Placeholder: [![Autograding](https://github.com/YoussefElserougi/forker/actions/workflows/classroom.yml/badge.svg)](https://github.com/YoussefElserougi/forker/actions/workflows/classroom.yml)
 
+Manually added student repo: 
+
 # Palindrome Permutation Assignment
 
 ## Problem Description
